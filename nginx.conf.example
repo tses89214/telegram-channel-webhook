@@ -1,0 +1,11 @@
+server {
+    listen 443 ssl;
+    server_name bots.example.com;
+    ssl_certificate     /etc/letsencrypt/live/bots.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/bots.example.com/privkey.pem;
+
+    # One public port, one location per bot. Trailing slashes on BOTH the location and
+    # proxy_pass, and on the URL given to setWebhook, or nginx answers 301 and Telegram gives up.
+    location /botA/ { proxy_pass http://127.0.0.1:8791/; }
+    location /botB/ { proxy_pass http://127.0.0.1:8792/; }
+}
